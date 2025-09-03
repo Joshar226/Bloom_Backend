@@ -1,6 +1,5 @@
 import type { Request, Response } from "express"
 import { User } from "../models/User";
-import bcrypt from 'bcrypt'
 import { checkPassword, hashPassword } from "../utils/auth";
 import { generateJWT } from "../utils/jwt";
 
@@ -57,5 +56,10 @@ export class AuthController {
         } catch (error) {
             res.status(500).json({error: 'Hubo un error'})
         }
+    }
+
+    static user = async (req : Request, res: Response) => {
+        res.json(req.user)
+        return
     }
 }

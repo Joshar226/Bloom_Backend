@@ -2,6 +2,8 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { AuthController } from '../controllers/AuthController'
+import { authenticate } from "../middleware/auth";
+import { NotEmpty } from "sequelize-typescript";
 
 
 const router = Router()
@@ -31,6 +33,11 @@ router.post('/login',
         .notEmpty().withMessage('El password no puede ir vacío'),
     handleInputErrors,
     AuthController.login
+)
+
+router.get('/user',
+    authenticate,
+    AuthController.user
 )
 
 export default router
